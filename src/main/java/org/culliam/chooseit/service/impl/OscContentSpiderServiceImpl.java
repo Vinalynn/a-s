@@ -5,7 +5,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.log4j.Logger;
 import org.culliam.chooseit.service.interfaces.OscContentSpiderService;
 import org.culliam.chooseit.util.HttpUtils;
 import org.json.JSONArray;
