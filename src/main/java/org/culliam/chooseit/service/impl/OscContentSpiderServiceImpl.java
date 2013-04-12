@@ -98,7 +98,7 @@ public class OscContentSpiderServiceImpl implements OscContentSpiderService {
      * @return
      */
     private String addUri(String uri, String href){
-        if(StringUtils.contains(href, "homeUri_2")) return href;
+        if(StringUtils.contains(href, homeUri_2)) return href;
         //if(StringUtils.contains(href, homeUri_1)) return href;
         return uri + href;
     }
