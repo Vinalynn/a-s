@@ -29,6 +29,7 @@ import java.io.InputStreamReader;
 public class OscContentSpiderServiceImpl implements OscContentSpiderService {
     private transient static Logger logger = Logger.getLogger(OscContentSpiderServiceImpl.class);
     private static String homeUri = "http://www.oschina.net";
+    private static String homeUri_1 = "www.oschina.net";
 
     public void spy() throws Exception {
 
@@ -102,6 +103,8 @@ public class OscContentSpiderServiceImpl implements OscContentSpiderService {
      * @return
      */
     private String addUri(String uri, String href){
+        if(StringUtils.contains(href, uri)) return href;
+        if(StringUtils.contains(href, homeUri_1)) return href;
         return uri + href;
     }
 }
