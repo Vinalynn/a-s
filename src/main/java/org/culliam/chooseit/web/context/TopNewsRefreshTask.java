@@ -32,7 +32,7 @@ public class TopNewsRefreshTask extends TimerTask {
     @Override
     public void run() {
         //context.setAttribute();
-        log.info("---------refresh the content at " + new Timestamp(new Date().getTime()).toString());
+        log.info("---------[oschina.net] top news refreshed at " + new Timestamp(new Date().getTime()).toString());
         try{
             ApplicationContext applicationContext =
                     WebApplicationContextUtils.getRequiredWebApplicationContext(context);

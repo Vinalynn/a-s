@@ -19,4 +19,11 @@ public interface StaticConfigDao {
      * @throws Exception
      */
     public List<StaticConfig> getStaticConfig(String configKey) throws Exception;
+
+    /**
+     *
+     * @return
+     * @throws Exception
+     */
+    public List<StaticConfig> getAllStaticConfig() throws Exception;
 }

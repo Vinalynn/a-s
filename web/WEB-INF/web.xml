@@ -34,12 +34,15 @@
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 
+    <!-- Load Config data -->
+    <listener>
+        <listener-class>org.culliam.chooseit.web.context.StaticConfigLoader</listener-class>
+    </listener>
 
     <!-- oschina topNews refresher -->
     <listener>
         <listener-class>org.culliam.chooseit.web.context.OscTopNewsRefresher</listener-class>
     </listener>
-
 
 
 	<servlet>

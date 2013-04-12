@@ -23,4 +23,12 @@ public interface StaticConfigMapper {
      */
     @Select("select * from c_static_config where config_type = #{configKey}")
     public List<StaticConfig> getStaticConfig(String configKey) throws Exception;
+
+    /**
+     * select all config data
+     * @return
+     * @throws Exception
+     */
+    @Select("select * from c_static_config")
+    public List<StaticConfig> getAllStaticConfig() throws Exception;
 }

@@ -24,4 +24,9 @@ public class StaticConfigDaoImpl implements StaticConfigDao {
     public List<StaticConfig> getStaticConfig(String configKey) throws Exception {
         return this.staticConfigMapper.getStaticConfig(configKey);
     }
+
+    @Override
+    public List<StaticConfig> getAllStaticConfig() throws Exception {
+        return this.staticConfigMapper.getAllStaticConfig();
+    }
 }

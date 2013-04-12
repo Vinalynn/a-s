@@ -78,6 +78,10 @@
 
     </bean>
 
+    <bean id="staticConfigService" class="org.culliam.chooseit.service.impl.StaticConfigServiceImpl">
+        <property name="staticConfigDao" ref="staticConfigDao" />
+    </bean>
+
 
     <!-- Dao -->
     <bean id="testDao" class="org.culliam.chooseit.dao.impl.TestDaoImpl">

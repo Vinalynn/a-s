@@ -13,6 +13,8 @@ public class AppConst {
 
     public interface StaticConfigKey {
         public static String SERV_EMAIL_ADDR = "serv_email_addr";
+        public static String OSC_NEWS_INTERVAL = "osc_news_interval";
+        public static String STATIC_CONFIG_CACHE_PREFIX = "_SC_CACHE_PREFIX_";
     }
 
     public interface extendInfo {
