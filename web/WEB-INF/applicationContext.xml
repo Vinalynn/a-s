@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+<!-- 
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName">
+			<value>org.logicalcobwebs.proxool.ProxoolDriver</value>
+		</property>
+		<property name="url">
+			<value>proxool.base</value>
+		</property>
+	</bean> -->
+	
+	<bean id="dataSource"
+		class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="org.gjt.mm.mysql.Driver"/>
+		<property name="url" value="jdbc:mysql://127.0.0.1:3306/answer_me"/>
+		<property name="username" value="root"/>
+		<property name="password" value="root" />
+	</bean>
+
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!--ORM Mapper -->
+    <bean id="userMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="org.culliam.chooseit.dao.mapper.UserMapper"/>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+    </bean>
+    <bean id="htmlDivConfigMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="org.culliam.chooseit.dao.mapper.HtmlDivConfigMapper"/>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+    </bean>
+    <bean id="staticConfigMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="org.culliam.chooseit.dao.mapper.StaticConfigMapper"/>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+    </bean>
+
+
+
+    <!-- 自增长id生成器 -->
+    <bean id="idGenarater"
+          class="org.springframework.jdbc.support.incrementer.MySQLMaxValueIncrementer">
+        <property name="incrementerName" value="c_id_generator"/>
+        <property name="columnName" value="id"/>
+        <property name="cacheSize" value="10"/>
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+	<!-- services -->
+	<bean id="loginService" class="org.culliam.chooseit.service.impl.LoginServiceImpl">
+	</bean>
+
+    <bean id="testService" class="org.culliam.chooseit.service.impl.TestServiceImpl">
+        <property name="testDao" ref="testDao" />
+        <property name="userDao" ref="userDao" />
+    </bean>
+
+    <bean id="htmlDivConfigService" class="org.culliam.chooseit.service.impl.HtmlDivConfigServiceImpl">
+        <property name="htmlDivConfigDao" ref="htmlDivConfigDao" />
+    </bean>
+
+    <bean id="mailService" class="org.culliam.chooseit.service.impl.MailServiceImpl">
+        <property name="staticConfigDao" ref="staticConfigDao" />
+    </bean>
+
+
+    <!-- Dao -->
+    <bean id="testDao" class="org.culliam.chooseit.dao.impl.TestDaoImpl">
+        <property name="idGenerator" ref="idGenarater" />
+    </bean>
+
+    <bean id="userDao" class="org.culliam.chooseit.dao.impl.UserDaoImpl">
+        <property name="userMapper" ref="userMapper" />
+    </bean>
+
+    <bean id="htmlDivConfigDao" class="org.culliam.chooseit.dao.impl.HtmlDivConfigDaoImpl">
+        <property name="htmlDivConfigMapper" ref="htmlDivConfigMapper" />
+    </bean>
+    <bean id="staticConfigDao" class="org.culliam.chooseit.dao.impl.StaticConfigDaoImpl">
+        <property name="staticConfigMapper" ref="staticConfigMapper" />
+    </bean>
+
+
+
+	<!-- Servlet -->
+	<bean id="loginServlet" class="org.culliam.chooseit.web.LoginServlet">
+		<property name="loginService" ref="loginService" />
+	</bean>
+
+    <bean id="testServlet" class="org.culliam.chooseit.web.TestServlet">
+        <property name="testService" ref="testService" />
+    </bean>
+
+    <bean id="divHtmlHandler" class="org.culliam.chooseit.web.DivHtmlHandler">
+        <property name="htmlDivConfigService" ref="htmlDivConfigService"/>
+    </bean>
+
+    <bean id="sendEmailServlet" class="org.culliam.chooseit.web.SendEmailServlet">
+        <property name="mailService" ref="mailService"/>
+    </bean>
+
+    <!--    
+	  -->
+
+	<!-- more bean definitions for services go here -->
+	<!-- Dao-->
+    <!--
+	<bean id="ISpringDaoTest" class="com.rolly.dao.impl.SpringDaoTestImpl">
+		<property name="dataSource">
+			<ref local="dataSource" />
+		</property>
+	</bean>  -->
+    
+    <!-- 
+    <bean id="iTestJdbcDAO" class="org.clickme.dao.impl.TestJdbcDAOImpl">
+        <property name="dataSource">
+            <ref local="dataSource"/>
+        </property>
+    </bean> -->
+         
+
+    <!--
+	<bean id="iBaseOperDao" class="com.rolly.dao.impl.BaseOperDaoImpl">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<bean id="iRollyUserDao" class="com.rolly.dao.impl.RollyUserDaoImpl">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	<bean id="iRollyLogDao" class="com.rolly.dao.impl.RollyLogDaoImpl">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	
+	<bean id="iRollyHomeDao" class="com.rolly.dao.impl.RollyHomeDaoImpl">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	
+	<bean id="iRollyTaskDao" class="com.rolly.dao.impl.RollyTaskDaoImpl">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>  -->
+
+</beans>
+
+
