@@ -1,4 +1,6 @@
 a-s.iml
 .idea/
 target/
+logs/
+out/
 
