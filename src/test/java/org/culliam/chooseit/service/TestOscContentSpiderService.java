@@ -22,7 +22,7 @@ public class TestOscContentSpiderService {
     public void testHttpClient() throws Exception{
         OscContentSpiderService service =
                 (OscContentSpiderService) AppTestServiceFacotry.getService(OscContentSpiderService.class);
-        service.spy();
+        System.out.println(service.oscHomePageTopNewsSpider());
 
     }
 

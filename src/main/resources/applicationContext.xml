@@ -113,6 +113,9 @@
     <bean id="sendEmailServlet" class="org.culliam.chooseit.web.SendEmailServlet">
         <property name="mailService" ref="mailService"/>
     </bean>
+    <bean id="obtainOscTopNews" class="org.culliam.chooseit.web.ObtainOscTopNewsServlet">
+        <property name="oscContentSpiderService" ref="oscContentSpiderService"/>
+    </bean>
 
     <!--    
 	  -->

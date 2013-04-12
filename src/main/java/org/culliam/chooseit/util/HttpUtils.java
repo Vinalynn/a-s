@@ -1,7 +1,14 @@
 package org.culliam.chooseit.util;
 
 
+import org.apache.commons.io.IOUtils;
+import org.apache.http.HttpEntity;
+
 import javax.servlet.http.HttpServletRequest;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Enumeration;
 import java.util.HashMap;
 
@@ -29,4 +36,17 @@ public class HttpUtils {
         }
         return params;
     }
+
+    /**
+     *
+     * @param is
+     * @param encoding
+     * @return
+     * @throws IOException
+     */
+    public static String dump(InputStream is, String encoding) throws IOException {
+        return IOUtils.toString(
+                new BufferedReader(new InputStreamReader(is, encoding)));
+    }
+
 }

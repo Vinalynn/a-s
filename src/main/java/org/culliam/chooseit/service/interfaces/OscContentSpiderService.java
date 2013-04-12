@@ -1,5 +1,7 @@
 package org.culliam.chooseit.service.interfaces;
 
+import org.json.JSONArray;
+
 /**
  * Created with IntelliJ IDEA.
  * User: caiwm
@@ -9,4 +11,6 @@ package org.culliam.chooseit.service.interfaces;
 public interface OscContentSpiderService {
 
     public void spy() throws Exception;
+
+    public JSONArray oscHomePageTopNewsSpider() throws Exception;
 }

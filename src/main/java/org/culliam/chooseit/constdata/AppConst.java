@@ -7,11 +7,15 @@ package org.culliam.chooseit.constdata;
  * Time: обнГ11:23
  */
 public class AppConst {
-    public interface User{
+    public interface User {
         public static String USER_ID = "_user_id";
     }
 
-    public interface StaticConfigKey{
-        public static String SERV_EMAIL_ADDR ="serv_email_addr";
+    public interface StaticConfigKey {
+        public static String SERV_EMAIL_ADDR = "serv_email_addr";
+    }
+
+    public interface extendInfo {
+        public static String OSC_TOP_NEWS_CONTEXT_KEY = "_OSC_TOP_NEWS_CONTEXT_KEY";
     }
 }

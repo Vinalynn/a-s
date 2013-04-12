@@ -1,21 +1,24 @@
 package org.culliam.chooseit.service.impl;
 
 
-import org.apache.http.HttpHost;
-import org.apache.http.HttpRequest;
-import org.apache.http.client.ConnectionBackoffStrategy;
-import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.config.ConnectionConfig;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.DefaultBackoffStrategy;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.protocol.HTTP;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.io.DefaultHttpResponseParser;
 import org.apache.log4j.Logger;
 import org.culliam.chooseit.service.interfaces.OscContentSpiderService;
+import org.culliam.chooseit.util.HttpUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
-import java.io.InputStream;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 /**
  * Created with IntelliJ IDEA.
@@ -25,27 +28,80 @@ import java.io.InputStream;
  */
 public class OscContentSpiderServiceImpl implements OscContentSpiderService {
     private transient static Logger logger = Logger.getLogger(OscContentSpiderServiceImpl.class);
+    private static String homeUri = "http://www.oschina.net";
 
     public void spy() throws Exception {
-        HttpClientBuilder clientBuilder = HttpClientBuilder.create();
-        clientBuilder.setConnectionBackoffStrategy(new DefaultBackoffStrategy());
 
-        CloseableHttpClient chc = clientBuilder.build();
+    }
 
-        HttpHost host = new HttpHost("www.oschina.net");
 
-        HttpRequest request = new HttpPost();
+    @Override
+    public JSONArray oscHomePageTopNewsSpider() throws Exception {
+        String htmlString =  entirePageSpider(homeUri);
+        JSONArray industryNews = new JSONArray();
+        //构造主页Document, 使用Jsoup
+        Document document = Jsoup.parse(htmlString, homeUri);
+        //首页综合资讯
+        Element industryNewsElement = document.getElementById("IndustryNews");
 
-        CloseableHttpResponse response = chc.execute(host, request);
-        InputStream inputStream = response.getEntity().getContent();
-        int count = 0;
-        while (count == 0) {
-            count = inputStream.available();
+        /*-START--特殊处理TodayNewsTop1----------*/
+        Elements todayNewsTop1Div = industryNewsElement.getElementsByClass("TodayNewsTop1");
+        Element todayNewsTop1A = todayNewsTop1Div.get(0).
+                getElementsByTag("h2").get(0).getElementsByTag("a").get(0);
+        String todayNewsTop1AOwnText = todayNewsTop1A.ownText();
+        String todayNewsTop1AHref = addUri(homeUri, todayNewsTop1A.attr("href"));
+        JSONObject todayNewsTop1 = new JSONObject();
+        todayNewsTop1.put("text", todayNewsTop1AOwnText).put("href", todayNewsTop1AHref);
+        industryNews.put(0, todayNewsTop1); //index-0 是topNews1
+         /*-END---特殊处理TodayNewsTop1----------*/
+
+
+        /*-START--处理UL-------------------------*/
+        Elements industryUl = industryNewsElement.getElementsByTag("ul");
+        JSONObject li_a_jObj;
+        for (Element element : industryUl) {
+             if(element.hasClass("p1")){
+                 Elements lis = element.getElementsByTag("li");
+                 for (Element li : lis) {
+                     Element li_a = li.getElementsByTag("a").get(0);
+                     li_a_jObj = new JSONObject();
+                     li_a_jObj.put("text", li_a.ownText()).
+                             put("href", addUri(homeUri, li_a.attr("href")));
+                     industryNews.put(li_a_jObj);
+                 }
+             }
         }
-        byte[] b = new byte[count];
-        inputStream.read(b);
+        /*-END---处理UL-------------------------*/
 
-        logger.error(new String(b, "utf-8"));
+        return industryNews;
+    }
 
+    /**
+     * 抓取制定URL返回的所有数据
+     * @param url
+     * @return
+     * @throws Exception
+     */
+    private String entirePageSpider(String url) throws Exception {
+        if (!StringUtils.startsWithIgnoreCase(url, "http")
+                ) url = "http://" + url;
+        // use: Maven: org.apache.httpcomponents:httpclient:4.2.4
+        HttpClient httpClient = new DefaultHttpClient();
+        HttpGet httpGet = new HttpGet(url);
+        httpGet.setHeader("User-Agent", "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) " +
+                "AppleWebKit/534.3 (KHTML, like Gecko) Chrome/6.0.472.63 Safari/534.3");
+        return HttpUtils.dump(
+                httpClient.execute(httpGet).getEntity().getContent(),
+                "UTF-8");
+    }
+
+    /**
+     * 在相对路径上加上Uri
+     * @param uri
+     * @param href
+     * @return
+     */
+    private String addUri(String uri, String href){
+        return uri + href;
     }
 }
