@@ -22,7 +22,7 @@ import org.jsoup.select.Elements;
  * Time: обнГ4:32
  */
 public class OscContentSpiderServiceImpl implements OscContentSpiderService {
-    private transient static Logger logger = Logger.getLogger(OscContentSpiderServiceImpl.class);
+    //private transient static Logger logger = Logger.getLogger(OscContentSpiderServiceImpl.class);
     private static String homeUri = "http://www.oschina.net";
     private static String homeUri_1 = "www.oschina.net";
 
