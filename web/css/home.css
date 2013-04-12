@@ -1,7 +1,7 @@
 #h_container{
     width: 960px;
     height: 520px;  /*600*/
-    background-color: #a52a2a;
+    /*background-color: #a52a2a;*/
     position: absolute;
     top: 50%;
     left: 50%;
@@ -12,7 +12,7 @@
 #h_content{
     width: 960px;
     height: 520px;
-    background-color: green;
+    /*background-color: green;*/
     margin: 0;
 }
 

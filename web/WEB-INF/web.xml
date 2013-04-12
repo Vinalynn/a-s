@@ -120,6 +120,20 @@
         <url-pattern>/obtain-osc-top-news</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>getOscTopNewsHtmlServlet</servlet-name>
+        <servlet-class>org.culliam.chooseit.web.ServletToBeanProxy</servlet-class>
+        <init-param>
+            <param-name>targetClass</param-name>
+            <param-value>org.culliam.chooseit.web.GetOscTopNewsHtmlServlet</param-value>
+        </init-param>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>getOscTopNewsHtmlServlet</servlet-name>
+        <url-pattern>/get-osc-top-news-html</url-pattern>
+    </servlet-mapping>
+
 </web-app>
 
 

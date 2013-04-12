@@ -36,7 +36,7 @@ public class StaticConfigLoader implements ServletContextListener {
                         staticConfig.getConfig_type(), staticConfig);
             }
 
-            log.info("配置数据加载成功！");
+            log.info("配置数据加载成功["+configData.size()+"]条！");
         } catch (Exception e){
             e.printStackTrace();
         }

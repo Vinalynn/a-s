@@ -21,7 +21,12 @@ $(function () {
  */
 function bindSubDockClick() {
     $(".h_dock_sub").click(function ($clickEvt) {
-        alert($clickEvt.currentTarget.id);
+        if("h_dock_sub_1" == $clickEvt.currentTarget.id ) {
+            displayOscTopNews();
+        }else{
+            alert($clickEvt.currentTarget.id);
+        }
+
     });
 }
 
@@ -65,6 +70,27 @@ function testSendEmail(){
 
     request.success(function (data) {
         alert(data)
+    });
+
+    request.fail(function (jqXHR, textStatus) {
+        alert("ERROR:----------" + jqXHR.responseText);
+    });
+}
+
+function displayOscTopNews(){
+    var request = $.ajax({
+        url: "/get-osc-top-news-html",
+        type: "POST",
+        async: false,
+        data: {},
+        dataType: "html"
+    });
+
+    request.success(function (data) {
+        //alert(data);
+        var $tmpSubObj = $("#h_content");
+        $tmpSubObj.html(""); //clear
+        $tmpSubObj.html(data);
     });
 
     request.fail(function (jqXHR, textStatus) {

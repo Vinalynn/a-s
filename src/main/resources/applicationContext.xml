@@ -121,6 +121,11 @@
         <property name="oscContentSpiderService" ref="oscContentSpiderService"/>
     </bean>
 
+    <bean id="getOscTopNewsHtmlServlet" class="org.culliam.chooseit.web.GetOscTopNewsHtmlServlet">
+        <property name="oscContentSpiderService" ref="oscContentSpiderService"/>
+        <property name="htmlDivConfigService" ref="htmlDivConfigService"/>
+    </bean>
+
     <!--    
 	  -->
 
