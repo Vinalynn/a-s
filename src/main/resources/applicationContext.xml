@@ -74,6 +74,10 @@
         <property name="staticConfigDao" ref="staticConfigDao" />
     </bean>
 
+    <bean id="oscContentSpiderService" class="org.culliam.chooseit.service.impl.OscContentSpiderServiceImpl">
+
+    </bean>
+
 
     <!-- Dao -->
     <bean id="testDao" class="org.culliam.chooseit.dao.impl.TestDaoImpl">
