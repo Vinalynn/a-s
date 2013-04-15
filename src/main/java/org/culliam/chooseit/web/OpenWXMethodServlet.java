@@ -9,6 +9,7 @@ import org.culliam.chooseit.util.SpellComparator;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
+import org.json.JSONArray;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -113,7 +114,12 @@ public class OpenWXMethodServlet extends HttpServlet{
                     responseStr.append("<FromUserName><![CDATA[").append(toUserName).append("]]></FromUserName>");
                     responseStr.append("<CreateTime>").append(System.currentTimeMillis()).append("</CreateTime>");
                     responseStr.append("<MsgType><![CDATA[text]]></MsgType>");
-                    responseStr.append("<Content><![CDATA[").append(new Timestamp(new Date().getTime())).append("]]></Content>");
+
+                    //获取缓存中的topNews
+                    JSONArray topNewsJsonArray = (JSONArray) getServletContext().
+                            getAttribute(AppConst.extendInfo.OSC_TOP_NEWS_CONTEXT_KEY);
+
+                    responseStr.append("<Content><![CDATA[").append(topNewsJsonArray.toString()).append("]]></Content>");
                     responseStr.append("<FuncFlag>0</FuncFlag></xml>");
 
                     if(log.isInfoEnabled()){
