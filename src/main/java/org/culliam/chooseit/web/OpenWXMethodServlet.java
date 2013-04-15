@@ -1,10 +1,14 @@
 package org.culliam.chooseit.web;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.apache.log4j.Logger;
 import org.culliam.chooseit.constdata.AppConst;
 import org.culliam.chooseit.util.HttpUtils;
 import org.culliam.chooseit.util.SpellComparator;
+import org.dom4j.Document;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -12,10 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.security.MessageDigest;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
+import java.sql.Timestamp;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -85,8 +87,10 @@ public class OpenWXMethodServlet extends HttpServlet{
         if (log.isInfoEnabled()) {
             log.info(userRequest);
         }
+
+        String reqString = StringUtils.EMPTY;
         try{
-            String reqString = HttpUtils.dump(req.getInputStream(), "UTF-8");
+            reqString = HttpUtils.dump(req.getInputStream(), "UTF-8");
             if(log.isInfoEnabled()){
                 log.info(reqString);
             }
@@ -94,7 +98,32 @@ public class OpenWXMethodServlet extends HttpServlet{
             e.printStackTrace();
         }
 
+        if(StringUtils.isNotEmpty(reqString)){
+            try{
+                Document doc = DocumentHelper.parseText(reqString);
+                Element rootElement = doc.getRootElement();
+                String content = rootElement.elementText("Content");
+                String toUserName = rootElement.elementText("ToUserName");
+                String fromUserName = rootElement.elementText("FromUserName");
 
+                if(StringUtils.isNotEmpty(content) && StringUtils.endsWithIgnoreCase("osc", content)){
+                    StringBuilder responseStr = new StringBuilder(50);
+                    responseStr.append("<xml>");
+                    responseStr.append("<ToUserName><![CDATA[").append(fromUserName).append("]]></ToUserName>");
+                    responseStr.append("<FromUserName><![CDATA[").append(toUserName).append("]]></FromUserName>");
+                    responseStr.append("<CreateTime>").append(System.currentTimeMillis()).append("</CreateTime>");
+                    responseStr.append("<MsgType><![CDATA[text]]></MsgType>");
+                    responseStr.append("<Content><![CDATA[").append(new Timestamp(new Date().getTime())).append("]]></Content>");
+                    responseStr.append("<FuncFlag>0</FuncFlag></xml>");
+                    resp.getWriter().write(responseStr.toString());
+                }
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
+
+        }
         //BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
 
