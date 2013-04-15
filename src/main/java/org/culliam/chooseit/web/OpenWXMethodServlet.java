@@ -115,6 +115,10 @@ public class OpenWXMethodServlet extends HttpServlet{
                     responseStr.append("<MsgType><![CDATA[text]]></MsgType>");
                     responseStr.append("<Content><![CDATA[").append(new Timestamp(new Date().getTime())).append("]]></Content>");
                     responseStr.append("<FuncFlag>0</FuncFlag></xml>");
+
+                    if(log.isInfoEnabled()){
+                        log.info("response:["+ responseStr.toString()+"]");
+                    }
                     resp.getWriter().write(responseStr.toString());
                 }
 
