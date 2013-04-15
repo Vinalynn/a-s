@@ -81,6 +81,7 @@ public class OpenWXMethodServlet extends HttpServlet{
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("text/html;charset=UTF-8");
         if(log.isInfoEnabled()){
             log.info("----user request received!!");
         }
