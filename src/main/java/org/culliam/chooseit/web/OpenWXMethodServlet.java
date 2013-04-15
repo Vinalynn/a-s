@@ -70,7 +70,7 @@ public class OpenWXMethodServlet extends HttpServlet{
         }
 
         if(StringUtils.endsWithIgnoreCase(outStr, StringUtils.substring(
-                String.valueOf(params.get("echostr")), 2, String.valueOf(params.get("echostr")).length()))){
+                String.valueOf(params.get("signature")), 2, String.valueOf(params.get("signature")).length()))){
             if(log.isInfoEnabled()){
                 log.info("return : [" + String.valueOf(params.get("echostr")) +"]");
             }
