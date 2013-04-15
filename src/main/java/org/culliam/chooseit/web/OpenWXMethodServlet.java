@@ -69,7 +69,8 @@ public class OpenWXMethodServlet extends HttpServlet{
             log.info("SHA-1=[" + outStr + "]");
         }
 
-        if(StringUtils.endsWithIgnoreCase(outStr, String.valueOf(params.get("echostr")))){
+        if(StringUtils.endsWithIgnoreCase(outStr, StringUtils.substring(
+                String.valueOf(params.get("echostr")), 2, String.valueOf(params.get("echostr")).length()))){
             if(log.isInfoEnabled()){
                 log.info("return : [" + String.valueOf(params.get("echostr")) +"]");
             }

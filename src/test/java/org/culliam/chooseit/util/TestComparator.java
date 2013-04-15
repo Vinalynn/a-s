@@ -46,6 +46,7 @@ public class TestComparator {
         }
 
         System.out.println(outStr);
+        System.out.println(StringUtils.substring(outStr, 2, outStr.length()));
 
     }
 
