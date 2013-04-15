@@ -30,11 +30,6 @@ public class OpenWXMethodServlet extends HttpServlet{
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doPost(req, resp);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html;charset=UTF-8");
         PrintWriter pw = resp.getWriter();
 
@@ -58,7 +53,7 @@ public class OpenWXMethodServlet extends HttpServlet{
         MessageDigest md = null;
         String outStr = StringUtils.EMPTY;
         try{
-             md = MessageDigest.getInstance("SHA-1");
+            md = MessageDigest.getInstance("SHA-1");
             outStr = bytetoString(md.digest(sb.toString().getBytes()));
         } catch (Exception e){
             e.printStackTrace();
@@ -79,6 +74,11 @@ public class OpenWXMethodServlet extends HttpServlet{
             pw.write("123");
         }
 
+
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 
     }
