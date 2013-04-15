@@ -79,6 +79,9 @@ public class OpenWXMethodServlet extends HttpServlet{
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if(log.isInfoEnabled()){
+            log.info("----user request received!!");
+        }
         HashMap<String, Object> userRequest = HttpUtils.getReqParams(req);
         if (log.isInfoEnabled()) {
             log.info(userRequest);
