@@ -4,7 +4,7 @@ package org.culliam.chooseit.constdata;
  * Created with IntelliJ IDEA.
  * User: caiwm
  * Date: 13-4-10
- * Time: обнГ11:23
+ * Time: О©╫О©╫О©╫О©╫11:23
  */
 public class AppConst {
     public interface User {
@@ -19,5 +19,6 @@ public class AppConst {
 
     public interface extendInfo {
         public static String OSC_TOP_NEWS_CONTEXT_KEY = "_OSC_TOP_NEWS_CONTEXT_KEY";
+        public static String WX_TOKEN = "DoubleClick_WX_Token";
     }
 }

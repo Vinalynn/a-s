@@ -134,6 +134,20 @@
         <url-pattern>/get-osc-top-news-html</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>OpenWXMethodServlet</servlet-name>
+        <servlet-class>org.culliam.chooseit.web.OpenWXMethodServlet</servlet-class>
+        <init-param>
+            <param-name>targetClass</param-name>
+            <param-value>org.culliam.chooseit.web.GetOscTopNewsHtmlServlet</param-value>
+        </init-param>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>OpenWXMethodServlet</servlet-name>
+        <url-pattern>/open-wx-tunnel</url-pattern>
+    </servlet-mapping>
+
 </web-app>
 
 

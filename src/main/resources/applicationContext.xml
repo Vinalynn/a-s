@@ -126,6 +126,12 @@
         <property name="htmlDivConfigService" ref="htmlDivConfigService"/>
     </bean>
 
+    <bean id="openWXMethodServlet" class="org.culliam.chooseit.web.OpenWXMethodServlet">
+
+    </bean>
+
+
+
     <!--    
 	  -->
 
