@@ -15,11 +15,17 @@ import java.io.PrintWriter;
  * Created with IntelliJ IDEA.
  * User: caiwm
  * Date: 13-4-13
- * Time: ÉÏÎç1:27
+ * Time: 1:27 PM
  * To change this template use File | Settings | File Templates.
  */
 public class ObtainOscTopNewsServlet extends HttpServlet {
-    private OscContentSpiderService oscContentSpiderService;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 8131111439628424419L;
+	
+	
+	private OscContentSpiderService oscContentSpiderService;
 
     public void setOscContentSpiderService(OscContentSpiderService oscContentSpiderService) {
         this.oscContentSpiderService = oscContentSpiderService;
@@ -34,7 +40,7 @@ public class ObtainOscTopNewsServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html;charset=UTF-8");
 
-        //»ñÈ¡»º´æÖÐµÄtopNews
+        //ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½topNews
         JSONArray topNewsJsonArray = (JSONArray) getServletContext().
                 getAttribute(AppConst.extendInfo.OSC_TOP_NEWS_CONTEXT_KEY);
 

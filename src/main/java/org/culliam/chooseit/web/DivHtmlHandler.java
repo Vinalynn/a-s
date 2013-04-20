@@ -17,10 +17,14 @@ import java.util.HashMap;
  * Created with IntelliJ IDEA.
  * User: caiwm
  * Date: 13-4-11
- * Time: ионГ12:17
+ * Time: О©╫О©╫О©╫О©╫12:17
  */
 public class DivHtmlHandler extends HttpServlet {
-    private transient static Logger log = Logger.getLogger(DivHtmlHandler.class);
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 143853430458338364L;
+	private transient static Logger log = Logger.getLogger(DivHtmlHandler.class);
     private HtmlDivConfigService htmlDivConfigService;
 
     public void setHtmlDivConfigService(HtmlDivConfigService htmlDivConfigService) {

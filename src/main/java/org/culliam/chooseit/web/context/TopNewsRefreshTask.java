@@ -1,6 +1,5 @@
 package org.culliam.chooseit.web.context;
 
-import org.apache.commons.lang3.BooleanUtils;
 import org.apache.log4j.Logger;
 import org.culliam.chooseit.constdata.AppConst;
 import org.culliam.chooseit.service.interfaces.OscContentSpiderService;
@@ -16,7 +15,7 @@ import java.util.TimerTask;
  * Created with IntelliJ IDEA.
  * User: caiwm
  * Date: 13-4-13
- * Time: ионГ12:47
+ * Time: О©╫О©╫О©╫О©╫12:47
  * To change this template use File | Settings | File Templates.
  */
 public class TopNewsRefreshTask extends TimerTask {

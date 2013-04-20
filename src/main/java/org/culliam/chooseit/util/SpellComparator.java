@@ -6,9 +6,9 @@ import java.util.Comparator;
  * Created with IntelliJ IDEA.
  * User: caiwm
  * Date: 13-4-15
- * Time: обнГ8:21
+ * Time: AM 8:21
  */
-public class SpellComparator implements Comparator {
+public class SpellComparator implements Comparator<Object> {
 
     public int compare(Object o1, Object o2) {
         try{

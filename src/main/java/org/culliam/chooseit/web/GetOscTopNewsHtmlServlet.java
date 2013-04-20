@@ -19,10 +19,15 @@ import java.io.PrintWriter;
  * Created with IntelliJ IDEA.
  * User: caiwm
  * Date: 13-4-13
- * Time: ÉÏÎç4:26
+ * Time: ï¿½ï¿½ï¿½ï¿½4:26
  */
 public class GetOscTopNewsHtmlServlet extends HttpServlet {
-    private OscContentSpiderService oscContentSpiderService;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 8343614477562054534L;
+	
+	private OscContentSpiderService oscContentSpiderService;
     private HtmlDivConfigService htmlDivConfigService;
 
     public void setHtmlDivConfigService(HtmlDivConfigService htmlDivConfigService) {
@@ -42,7 +47,7 @@ public class GetOscTopNewsHtmlServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html;charset=UTF-8");
 
-        //»ñÈ¡»º´æÖÐµÄtopNews
+        //ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½topNews
         JSONArray topNewsJsonArray = (JSONArray) getServletContext().
                 getAttribute(AppConst.extendInfo.OSC_TOP_NEWS_CONTEXT_KEY);
 

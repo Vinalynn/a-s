@@ -18,7 +18,7 @@ import java.util.List;
  * Created with IntelliJ IDEA.
  * User: caiwm
  * Date: 13-4-13
- * Time: 上午2:09
+ * Time: aM 2:09
  */
 public class StaticConfigLoader implements ServletContextListener {
     private transient Logger log = Logger.getLogger(StaticConfigLoader.class);
@@ -36,7 +36,7 @@ public class StaticConfigLoader implements ServletContextListener {
                         staticConfig.getConfig_type(), staticConfig);
             }
 
-            log.info("配置数据加载成功["+configData.size()+"]条！");
+            log.info("config data load successfully, total ["+configData.size()+"].");
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -46,7 +46,8 @@ public class StaticConfigLoader implements ServletContextListener {
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
-        Enumeration<String> enumeration = sce.getServletContext().getAttributeNames();
+        @SuppressWarnings("unchecked")
+		Enumeration<String> enumeration = sce.getServletContext().getAttributeNames();
         List<String> needDelAttrKeys = new ArrayList<String>(5);
         while(enumeration.hasMoreElements()){
             String key = enumeration.nextElement();
@@ -58,6 +59,6 @@ public class StaticConfigLoader implements ServletContextListener {
         for (String needDelAttrName : needDelAttrKeys) {
               sce.getServletContext().removeAttribute(needDelAttrName);
         }
-        log.info("配置数据卸载成功！");
+        log.info("config data removed successfully.");
     }
 }

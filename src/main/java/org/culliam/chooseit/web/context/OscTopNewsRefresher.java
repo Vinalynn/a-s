@@ -4,7 +4,6 @@ import org.apache.log4j.Logger;
 import org.culliam.chooseit.constdata.AppConst;
 import org.culliam.chooseit.dao.bean.StaticConfig;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import java.sql.Timestamp;
@@ -14,7 +13,7 @@ import java.util.Date;
  * Created with IntelliJ IDEA.
  * User: caiwm
  * Date: 13-4-13
- * Time: ионГ12:44
+ * Time: AM 12:44
  */
 public class OscTopNewsRefresher implements ServletContextListener {
     private transient static Logger log = Logger.getLogger(OscTopNewsRefresher.class);

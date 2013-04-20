@@ -1,7 +1,6 @@
 package org.culliam.chooseit.util;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import java.security.MessageDigest;
@@ -14,7 +13,7 @@ import java.util.List;
  * Created with IntelliJ IDEA.
  * User: caiwm
  * Date: 13-4-15
- * Time: обнГ8:25
+ * Time: AM 8:25
  */
 public class TestComparator {
    // private transient static Logger log = Logger.getLogger(TestComparator.class);

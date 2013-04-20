@@ -18,12 +18,12 @@ import org.jsoup.select.Elements;
  * Created with IntelliJ IDEA.
  * User: caiwm
  * Date: 13-4-12
- * Time: 下午4:32
+ * Time: 锟斤拷锟斤拷4:32
  */
 public class OscContentSpiderServiceImpl implements OscContentSpiderService {
     //private transient static Logger logger = Logger.getLogger(OscContentSpiderServiceImpl.class);
     private static String homeUri = "http://www.oschina.net";
-    private static String homeUri_1 = "www.oschina.net";
+    //private static String homeUri_1 = "www.oschina.net";
     private static String homeUri_2 = "oschina.net";
 
     public void spy() throws Exception {
@@ -35,12 +35,12 @@ public class OscContentSpiderServiceImpl implements OscContentSpiderService {
     public JSONArray oscHomePageTopNewsSpider() throws Exception {
         String htmlString =  entirePageSpider(homeUri);
         JSONArray industryNews = new JSONArray();
-        //构造主页Document, 使用Jsoup
+        //
         Document document = Jsoup.parse(htmlString, homeUri);
-        //首页综合资讯
+        //
         Element industryNewsElement = document.getElementById("IndustryNews");
 
-        /*-START--特殊处理TodayNewsTop1----------*/
+        /*-START--TodayNewsTop1----------*/
         Elements todayNewsTop1Div = industryNewsElement.getElementsByClass("TodayNewsTop1");
         Element todayNewsTop1A = todayNewsTop1Div.get(0).
                 getElementsByTag("h2").get(0).getElementsByTag("a").get(0);
@@ -48,11 +48,11 @@ public class OscContentSpiderServiceImpl implements OscContentSpiderService {
         String todayNewsTop1AHref = addUri(homeUri, todayNewsTop1A.attr("href"));
         JSONObject todayNewsTop1 = new JSONObject();
         todayNewsTop1.put("text", todayNewsTop1AOwnText).put("href", todayNewsTop1AHref);
-        industryNews.put(0, todayNewsTop1); //index-0 是topNews1
-         /*-END---特殊处理TodayNewsTop1----------*/
+        industryNews.put(0, todayNewsTop1); //index-0 锟斤拷topNews1
+         /*-END---TodayNewsTop1----------*/
 
 
-        /*-START--处理UL-------------------------*/
+        /*-START--UL-------------------------*/
         Elements industryUl = industryNewsElement.getElementsByTag("ul");
         JSONObject li_a_jObj;
         for (Element element : industryUl) {
@@ -67,13 +67,13 @@ public class OscContentSpiderServiceImpl implements OscContentSpiderService {
                  }
              }
         }
-        /*-END---处理UL-------------------------*/
+        /*-END---UL-------------------------*/
 
         return industryNews;
     }
 
     /**
-     * 抓取制定URL返回的所有数据
+     * 
      * @param url
      * @return
      * @throws Exception
@@ -92,7 +92,7 @@ public class OscContentSpiderServiceImpl implements OscContentSpiderService {
     }
 
     /**
-     * 在相对路径上加上Uri
+     * 
      * @param uri
      * @param href
      * @return

@@ -4,7 +4,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 /**
- * 测试使用的获取应用上下文
+ * 
  *
  * Created with IntelliJ IDEA.
  * User: caiwm
@@ -27,7 +27,7 @@ public class AppTestServiceFacotry {
         return ac.getBean(serviceName);
     }
 
-    public static Object getService(Class clazz){
+    public static <T> T getService(Class<T> clazz){
        return ac.getBean(clazz);
     }
 }

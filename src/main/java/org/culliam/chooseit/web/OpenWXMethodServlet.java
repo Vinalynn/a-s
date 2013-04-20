@@ -1,7 +1,6 @@
 package org.culliam.chooseit.web;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.DateUtils;
 import org.apache.log4j.Logger;
 import org.culliam.chooseit.constdata.AppConst;
 import org.culliam.chooseit.util.HttpUtils;
@@ -9,28 +8,29 @@ import org.culliam.chooseit.util.SpellComparator;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
-import org.json.JSONArray;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.security.MessageDigest;
-import java.sql.Timestamp;
 import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
  * User: caiwm
  * Date: 13-4-15
- * Time: 下午8:11
+ * Time: 涓嬪崍8:11
  * To change this template use File | Settings | File Templates.
  */
 public class OpenWXMethodServlet extends HttpServlet{
-    private transient static Logger log = Logger.getLogger(OpenWXMethodServlet.class);
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -4272060357203239805L;
+	private transient static Logger log = Logger.getLogger(OpenWXMethodServlet.class);
 
-    @Override
+	@Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html;charset=UTF-8");
         PrintWriter pw = resp.getWriter();
@@ -108,26 +108,38 @@ public class OpenWXMethodServlet extends HttpServlet{
                 String toUserName = rootElement.elementText("ToUserName");
                 String fromUserName = rootElement.elementText("FromUserName");
 
+                StringBuilder responseStr = new StringBuilder(50);
+                responseStr.append("<xml>");
+                responseStr.append("<ToUserName><![CDATA[").append(fromUserName).append("]]></ToUserName>");
+                responseStr.append("<FromUserName><![CDATA[").append(toUserName).append("]]></FromUserName>");
+                responseStr.append("<CreateTime>").append(System.currentTimeMillis()).append("</CreateTime>");
+                
                 if(StringUtils.isNotEmpty(content) && StringUtils.endsWithIgnoreCase("osc", content)){
-                    StringBuilder responseStr = new StringBuilder(50);
-                    responseStr.append("<xml>");
-                    responseStr.append("<ToUserName><![CDATA[").append(fromUserName).append("]]></ToUserName>");
-                    responseStr.append("<FromUserName><![CDATA[").append(toUserName).append("]]></FromUserName>");
-                    responseStr.append("<CreateTime>").append(System.currentTimeMillis()).append("</CreateTime>");
+
                     responseStr.append("<MsgType><![CDATA[text]]></MsgType>");
 
-                    //获取缓存中的topNews
-                    JSONArray topNewsJsonArray = (JSONArray) getServletContext().
-                            getAttribute(AppConst.extendInfo.OSC_TOP_NEWS_CONTEXT_KEY);
+                    //
+//                    JSONArray topNewsJsonArray = (JSONArray) getServletContext().
+//                            getAttribute(AppConst.extendInfo.OSC_TOP_NEWS_CONTEXT_KEY);
 
-                    responseStr.append("<Content><![CDATA[").append(topNewsJsonArray.toString()).append("]]></Content>");
-                    responseStr.append("<FuncFlag>0</FuncFlag></xml>");
+                    responseStr.append("<Content><![CDATA[").append("I Love U!!").append("]]></Content>");
 
-                    if(log.isInfoEnabled()){
-                        log.info("response:["+ responseStr.toString()+"]");
-                    }
-                    resp.getWriter().write(responseStr.toString());
+                }else{
+                    responseStr.append("<MsgType><![CDATA[text]]></MsgType>");
+
+                    //
+//                    JSONArray topNewsJsonArray = (JSONArray) getServletContext().
+//                            getAttribute(AppConst.extendInfo.OSC_TOP_NEWS_CONTEXT_KEY);
+
+                    responseStr.append("<Content><![CDATA[").append("我爱你！！").append("]]></Content>");
                 }
+                
+                responseStr.append("<FuncFlag>0</FuncFlag></xml>");
+
+                if(log.isInfoEnabled()){
+                    log.info("response:["+ responseStr.toString()+"]");
+                }
+                resp.getWriter().write(new String(responseStr.toString().getBytes(), "UTF-8"));
 
             }catch (Exception e){
                 e.printStackTrace();

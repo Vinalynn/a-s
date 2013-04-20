@@ -13,11 +13,15 @@ import java.io.PrintWriter;
  * Created with IntelliJ IDEA.
  * User: caiwm
  * Date: 13-4-11
- * Time: обнГ5:21
+ * Time: О©╫О©╫О©╫О©╫5:21
  * To change this template use File | Settings | File Templates.
  */
 public class SendEmailServlet extends HttpServlet {
-    private MailService mailService;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 5725212887493473872L;
+	private MailService mailService;
 
     public void setMailService(MailService mailService) {
         this.mailService = mailService;
