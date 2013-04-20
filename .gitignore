@@ -3,4 +3,7 @@ a-s.iml
 target/
 logs/
 out/
+.settings/
+.classpath
+.project
 
